@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${db.url:jdbc:postgresql://localhost:5432/mandalart}
+    username: ${db.username:postgres}
+    password: ${db.password:1234}
+    hikari:
+      maximum-pool-size: 2
+      minimum-idle: 1
+  jpa:
+    hibernate:
+      ddl-auto: ${db.ddl:create-drop}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      jakarta:
+        persistence:
+          validation:
+            mode: none
+    show-sql: true
+
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    cache-duration: 30
+    always-use-message-format: true
+    use-code-as-default-message: true
+    fallback-to-system-locale: true

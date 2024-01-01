@@ -3,6 +3,7 @@ package me.kzv.mandalart.domain.user
 import jakarta.persistence.*
 import me.kzv.mandalart.support.jpa.BaseEntity
 import me.kzv.mandalart.domain.user.UserStatus.*
+import me.kzv.mandalart.security.UserRole
 import java.time.OffsetDateTime
 
 /**
@@ -24,7 +25,7 @@ class User(
 
     /** 닉네임 */
     @Column(length = 50, nullable = false)
-    val nickName: String,
+    var nickname: String,
 
     /** 프로필 이미지 경로 */
     var profileImageUrl: String,
@@ -39,7 +40,25 @@ class User(
 
     /** 활동 정지 종료일 */
     var stopEndDate: OffsetDateTime? = null,
+
+    /** 권한 */
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.LAZY) // default lazy 이지만 명시
+    @CollectionTable(name = "user_roles", joinColumns = [JoinColumn(name = "user_id")])
+    var roles: MutableList<UserRole> = mutableListOf(UserRole.USER),
+
+    /** 연동 소셜 플랫폼 */
+    @Enumerated(EnumType.STRING)
+    var socialPlatform: SocialPlatform
 ) : BaseEntity() {
+
+    fun addAdminRole() {
+        this.roles.add(UserRole.ADMIN)
+    }
+
+    fun removeAdminRole() {
+        this.roles.remove(UserRole.ADMIN)
+    }
 
     fun inactivate() {
         check(status == ACTIVE)
@@ -50,5 +69,9 @@ class User(
     fun stop(reason: String) {
         this.status = STOPPED
         this.stoppedReason = reason
+    }
+
+    fun changeNickname(nickname: String) {
+        this.nickname = nickname
     }
 }

@@ -19,7 +19,10 @@ class Goal(
 
     var title: String = "",
 
-    /** 할일 1 ~ 8 */
+    /** 할일 1 ~ 8
+     * 지속적으로 수정이 일어날 것이므로 @ElementCollection과 같이
+     * 1:M 관계로 이어나가는 것보다 그냥 필드로 넣는 게 나을 듯?
+     * */
     var todo1: String = "",
     var todo2: String = "",
     var todo3: String = "",

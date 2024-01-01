@@ -9,15 +9,16 @@ spring:
       minimum-idle: 1
   jpa:
     hibernate:
-      ddl-auto: ${db.ddl:create-drop}
+      ddl-auto: ${db.ddl:update}
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
       jakarta:
         persistence:
           validation:
             mode: none
     show-sql: true
+    open-in-view: false
 
   messages:
     basename: i18n/messages

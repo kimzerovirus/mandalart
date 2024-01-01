@@ -66,9 +66,11 @@ class User(
         this.status = INACTIVE
     }
 
-    fun stop(reason: String) {
+    // TODO 정지 기간 정의 필요
+    fun stop(reason: String, stopEndDate: OffsetDateTime?) {
         this.status = STOPPED
         this.stoppedReason = reason
+        this.stopEndDate = stopEndDate
     }
 
     fun changeNickname(nickname: String) {

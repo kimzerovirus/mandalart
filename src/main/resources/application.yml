@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${db.url:jdbc:postgresql://localhost:5432/mandalart}
-    username: ${db.username:postgres}
-    password: ${db.password:1234}
+    url: ${db_url:jdbc:postgresql://localhost:5432/mandalart}
+    username: ${db_username:postgres}
+    password: ${db_password:1234}
     hikari:
       maximum-pool-size: 2
       minimum-idle: 1
